@@ -6,8 +6,7 @@ using UnityEngine;
 public enum Difficulty
 {
     DUMB,
-    LESS_DUMB,
-    MOSTLY_NOT_DUMB
+    NOTDUMB
 }
 public enum NumPlayers
 {
@@ -19,7 +18,6 @@ public class MiniMaxBrain
     private Players[,] playerBase, playerTemp;
     private Players thisPlay;
     private Colour aiColour, humanColour;
-    private Difficulty difficulty;
     private int score, topScore, topPosX, topPosY;
     private int[,] scores;
     public Colour Colour
@@ -38,12 +36,11 @@ public class MiniMaxBrain
     {
         get { return scores; }
     }
-    public MiniMaxBrain(Players[,] play, Colour c, int w, int h, Difficulty d)
+    public MiniMaxBrain(Players[,] play, Colour c, int w, int h)
     {
         playerBase = play;
         playerTemp = play;
         aiColour = c;
-        difficulty = d;
         if (aiColour == Colour.RED)
             humanColour = Colour.BLUE;
         else
@@ -61,7 +58,7 @@ public class MiniMaxBrain
         {
             for(int j = 0; j < scores.GetLength(1); j++)
             {
-                score = MiniMax(x,y,1,playerTemp, ap, difficulty);
+                score = MiniMax(x,y,1,playerTemp, ap);
                 scores[i,j] = score;
                 if(score > topScore)
                     topScore = score;
@@ -87,15 +84,8 @@ public class MiniMaxBrain
         topPosY = TopY[topFinder];
     }
 
-    private int MiniMax(int posX, int posY, int depth, Players[,] plays, int ap, Difficulty d)
+    private int MiniMax(int posX, int posY, int depth, Players[,] plays, int ap)
     {
-        int difficulty = 1;
-        switch (d)
-        {
-            case Difficulty.DUMB: difficulty = 1; break;
-            case Difficulty.LESS_DUMB: difficulty = 5; break;
-            case Difficulty.MOSTLY_NOT_DUMB: difficulty = 20; break;
-        }
         depth++;
         bool myTurn = false;
         if (depth % 2 == 0)
@@ -132,7 +122,7 @@ public class MiniMaxBrain
                     hPosY.Add(j);
                     count++;
                 }
-                if (depth > difficulty)
+                if (depth > 20)
                 {
                     if (count > 0)
                     {
@@ -159,7 +149,7 @@ public class MiniMaxBrain
                     }
                     else return 100;
                 }
-                tempScore = MiniMax(randX, randY, depth, plays, ap, d);
+                tempScore = MiniMax(randX, randY, depth, plays, ap);
                 scores[i, j] = tempScore;
             }
         }
