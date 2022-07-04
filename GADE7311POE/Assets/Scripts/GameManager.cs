@@ -4,6 +4,8 @@ using System.IO;
 using UnityEngine.UI;
 using UnityEngine;
 
+
+
 public class GameManager : MonoBehaviour
 {
     private string mapPath;
@@ -55,12 +57,12 @@ public class GameManager : MonoBehaviour
 
     public void playerVAi()
     {
-        SceneManager.LoadScene("");
+        //SceneManager.LoadScene("");
     }
 
     public void playerVPlayer()
     {
-        SceneManager.LoadScene("Sample Scene");
+        //SceneManager.LoadScene("Sample Scene");
     }
 
 

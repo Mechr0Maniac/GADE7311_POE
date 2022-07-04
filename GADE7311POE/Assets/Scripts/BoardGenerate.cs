@@ -13,7 +13,7 @@ public enum BoardSpace
     RUINWALL
 }
 
-public class BoardGenerate
+public class BoardGenerate: MonoBehaviour
 {
     private int width, height, originX, originY;
 
@@ -55,21 +55,28 @@ public class BoardGenerate
     }
     public void CreateBoard(string[] s)
     {
+          
         char[] map;
-        for (int x = 0; x < width; x++)
+        for (int j = 0; j < width; j++)
         {
-            map = s[x].ToCharArray();
-            for (int y = 0; y < height; y++)
+            map = s[j].ToCharArray();
+            for (int i = 0; i < height; i++)
             {
-                switch (map[y])
+               int x = Random.Range(0,width);
+               int y = Random.Range(0,height);
+                int rx = Random.Range(0,width-4);
+               int ry = Random.Range(0,height-4);
+                switch (map[i])
                 {
+                 
+
                     case 'G': tiles[x, y] = BoardSpace.GRASS; break;
                     case 'H': tiles[x, y] = BoardSpace.HILL1; break;
                     case 'I': tiles[x, y] = BoardSpace.HILL2; break;
                     case 'J': tiles[x, y] = BoardSpace.HILL3; break;
-                    case 'R': tiles[x, y] = BoardSpace.ROCKY; break;
+                    case 'R': tiles[j, i] = BoardSpace.ROCKY; break;
                     case 'F': tiles[x, y] = BoardSpace.RUINFLOOR; break;
-                    case 'W': tiles[x, y] = BoardSpace.RUINWALL; break;
+                    case 'W': tiles[rx, ry] = BoardSpace.RUINWALL; break;
                 }
             }
         }
