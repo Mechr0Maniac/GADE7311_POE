@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum PlayerType
 {
-    AI,
+    SIMPLEAI,
+    SMARTAI,
     HUMAN
 }
 public class GameState
@@ -15,6 +16,7 @@ public class GameState
     public PlayerType playerType;
     public GameObject playerSelected;
     private MiniMaxBrain mini;
+    private QLearnBrain qlearn;
     private int width, height, ap;
     private bool primed;
     public Colour Colour
@@ -69,9 +71,13 @@ public class GameState
             }
         }
         setupPlayers();
-        if (pt == PlayerType.AI)
+        if (pt == PlayerType.SIMPLEAI)
         {
             mini = new MiniMaxBrain(players, colour, width, height);
+        }
+        else if (pt == PlayerType.SMARTAI)
+        {
+            qlearn = new QLearnBrain(20);
         }
         else
         {

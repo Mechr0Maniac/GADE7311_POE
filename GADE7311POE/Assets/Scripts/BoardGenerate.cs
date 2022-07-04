@@ -13,7 +13,7 @@ public enum BoardSpace
     RUINWALL
 }
 
-public class BoardGenerate: MonoBehaviour
+public class BoardGenerate
 {
     private int width, height, originX, originY;
 
